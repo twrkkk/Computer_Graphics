@@ -8,12 +8,13 @@ WNDCLASS createWindowClass(HBRUSH bgColor, HCURSOR cursor, HINSTANCE hInstance, 
 LRESULT CALLBACK windowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
 Render2D render;
+Camera cam(Vector2D(1,0));
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 
-	render.addObject(new Model2D("figure1.txt", 100, 0));
-	render.addObject(new Model2D("figure2.txt", 100, 0));
+	render.addObject(new Model2D("star.txt", 100, 0));
+	render.addObject(new Model2D("trapeze.txt", 100, 0));
 
 	WNDCLASS mainWindow = createWindowClass((HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_ARROW), hInstance, LoadIcon(NULL, IDI_QUESTION), L"MainWndClass", windowProcedure);
 
@@ -66,7 +67,7 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 		hdc = GetDC(hWnd);
 		brush = CreateSolidBrush(RGB(0, 255, 0));
 		SelectObject(hdc, brush);
-		render.draw(hdc);
+		render.draw(hdc, cam);
 		DeleteObject(brush);
 		ReleaseDC(hWnd, hdc);
 		break;

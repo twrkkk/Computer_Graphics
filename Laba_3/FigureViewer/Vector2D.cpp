@@ -31,3 +31,12 @@ double Vector2D::y() const
 {
     return m_y;
 }
+
+void Vector2D::ApplyTransformation(const Matrix<double>& M)
+{
+    float _x = m_x;
+    float _y = m_y;
+
+    m_x = M(1, 1) * _x + M(1, 2) * _y + M(1, 3);
+    m_y = M(2, 1) * _x + M(2, 2) * _y + M(2, 3);
+}

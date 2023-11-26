@@ -1,4 +1,5 @@
 #pragma once
+#include "Matrix.h"
 
 class Vector2D
 {
@@ -12,6 +13,8 @@ public:
 
 	double x() const;
 	double y() const;
+
+	void ApplyTransformation(const Matrix<double>& M);
 
 private:
 	double m_x = 0.0;

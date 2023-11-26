@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AffineTransform.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Model2D.h" />
@@ -29,6 +30,8 @@
   <ItemGroup>
     <Text Include="figure1.txt" />
     <Text Include="figure2.txt" />
+    <Text Include="star.txt" />
+    <Text Include="trapeze.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E1239349-153B-42C8-AFA3-27CDA7990A81}</ProjectGuid>

@@ -12,7 +12,7 @@ Model2D* Render2D::get_model()
 	return m_objects[selected];
 }
 
-void Render2D::draw(const HDC& hdc)
+void Render2D::draw(const HDC& hdc, const Camera& cam)
 {
 	HBRUSH oldBrush = NULL;
 	for (int i = 0; i < m_objects.size(); i++)
@@ -23,7 +23,7 @@ void Render2D::draw(const HDC& hdc)
 		}
 
 		if (m_objects[i])
-			m_objects[i]->draw(hdc);
+			m_objects[i]->draw(hdc, cam);
 
 		if (i == selected)
 		{

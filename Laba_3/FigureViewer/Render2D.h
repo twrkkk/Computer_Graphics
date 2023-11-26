@@ -12,7 +12,7 @@ public:
 	Render2D() = default;
 	~Render2D();
 	Model2D* get_model();
-	void draw(const HDC& hdc);
+	void draw(const HDC& hdc, const Camera& cam);
 	void addObject(Model2D* model);
 
 	void nextObj();

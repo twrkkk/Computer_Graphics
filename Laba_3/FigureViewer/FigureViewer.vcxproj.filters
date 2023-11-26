@@ -53,12 +53,21 @@
     <ClInclude Include="AffineTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="figure2.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="figure1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="star.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="trapeze.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

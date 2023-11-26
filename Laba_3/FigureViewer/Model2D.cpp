@@ -16,12 +16,29 @@ Model2D::Model2D(const std::string path, double dX, double dY)
 	fillMatrix(dX, dY);
 }
 
-void Model2D::draw(const HDC& hdc)
+void Model2D::draw(const HDC& hdc, const Camera& cam)
 {
 	POINT* vertcs = getPoints();
+	//int size = m_vertices.size();
+	//for (int i = 0; i < size; ++i)
+	//{
+	//	Vector2D dot = cam.GetDot(m_vertices[m_indices[i]]);
+	//	vertcs[i].x = dot.x();
+	//	vertcs[i].y = dot.y();
+	//}
 
 	Polygon(hdc, vertcs, m_vertices.size());
 	delete[] vertcs;
+
+	/*Vector2D start = cam.GetDot(m_vertices[m_indices[0]]);
+	MoveToEx(hdc, start.x(), start.y(), NULL);
+
+	int size = m_indices.size();
+	for (int i = 1; i < size; ++i) {
+
+		Vector2D dot = cam.GetDot(m_vertices[m_indices[i]]);
+		LineTo(hdc, dot.x(), dot.y());
+	}*/
 }
 
 void Model2D::apply(Matrix<> transformMat)
