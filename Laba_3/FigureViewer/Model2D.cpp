@@ -16,7 +16,7 @@ Model2D::Model2D(const std::string path, double dX, double dY)
 	fillMatrix(dX, dY);
 }
 
-void Model2D::draw(const HDC& hdc, const Camera& cam)
+void Model2D::draw(const HDC& hdc)
 {
 	POINT* vertcs = getPoints();
 	//int size = m_vertices.size();
@@ -80,6 +80,16 @@ void Model2D::affin(Matrix<> transformMat)
 	apply(Translation(-tempX, -tempY));
 	apply(transformMat);
 	apply(Translation(tempX, tempY));
+}
+
+std::vector<Vector2D> Model2D::GetVertices() const
+{
+	return m_vertices;
+}
+
+std::vector<int> Model2D::GetIndices() const
+{
+	return m_indices;
 }
 
 void Model2D::Rotation_M(double O)

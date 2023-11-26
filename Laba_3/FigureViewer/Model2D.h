@@ -8,7 +8,6 @@
 #include "Matrix.h"
 #include "Loader.h"
 #include "AffineTransform.h"
-#include "Camera.h"
 
 class Model2D
 {
@@ -17,9 +16,11 @@ public:
 	Model2D(const std::vector<Vector2D>& vertices, const std::vector<int>& indices);
 	Model2D(const std::string path, double dX, double dY);
 
-	void draw(const HDC& hdc, const Camera& cam);
+	void draw(const HDC& hdc);
 	void apply(Matrix<> transformMat);
 	void affin(Matrix<> transformMat);
+	std::vector<Vector2D> GetVertices() const;
+	std::vector<int> GetIndices() const;
 	void Rotation_M(double O);
 	void Translation_M(double x, double y);
 
@@ -27,6 +28,7 @@ public:
 	void ReflectOY();
 	void ReflectOX();
 	pair<double, double> getFirstCoord();
+	POINT* getPoints();
 
 private:
 	std::vector<Vector2D> m_vertices;
@@ -34,5 +36,4 @@ private:
 
 	Matrix<> m_modelMatrix;
 	void fillMatrix(double dX, double dY);
-	POINT* getPoints();
 };

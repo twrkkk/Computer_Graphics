@@ -12,19 +12,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AffineTransform.cpp" />
+    <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="Model2D.cpp" />
     <ClCompile Include="Render2D.cpp" />
+    <ClCompile Include="Scene2D.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AffineTransform.h" />
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Model2D.h" />
     <ClInclude Include="Render2D.h" />
+    <ClInclude Include="Scene2D.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
