@@ -8,6 +8,14 @@
 
 class Loader
 {
+private:
+	bool isLoad();
+
+	std::vector<Vector2D> m_vertices;
+	std::vector<int> m_indices;
+
+	std::string m_path;
+
 public:
 	Loader(const std::string& path);
 	~Loader();
@@ -16,12 +24,4 @@ public:
 	std::vector<int> indices() const;
 
 	void load();
-
-private:
-	bool isLoad();
-
-	std::vector<Vector2D> m_vertices;
-	std::vector<int> m_indices;
-
-	std::string m_path;
 };

@@ -12,8 +12,7 @@ public:
 	Render2D() = default;
 	~Render2D();
 	Model2D* get_model();
-	std::vector<Model2D*> get_models();
-	void draw(const HDC& hdc);
+	void draw(const HDC& hdc, RECT& rcClient);
 	void addObject(Model2D* model);
 
 	void nextObj();

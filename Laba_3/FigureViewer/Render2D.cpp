@@ -12,12 +12,7 @@ Model2D* Render2D::get_model()
 	return m_objects[selected];
 }
 
-std::vector<Model2D*> Render2D::get_models()
-{
-	return m_objects;
-}
-
-void Render2D::draw(const HDC& hdc)
+void Render2D::draw(const HDC& hdc, RECT& rcClient)
 {
 	HBRUSH oldBrush = NULL;
 	for (int i = 0; i < m_objects.size(); i++)
@@ -28,7 +23,7 @@ void Render2D::draw(const HDC& hdc)
 		}
 
 		if (m_objects[i])
-			m_objects[i]->draw(hdc);
+			m_objects[i]->draw(hdc, rcClient);
 
 		if (i == selected)
 		{

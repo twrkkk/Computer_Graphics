@@ -16,29 +16,33 @@ Model2D::Model2D(const std::string path, double dX, double dY)
 	fillMatrix(dX, dY);
 }
 
-void Model2D::draw(const HDC& hdc)
+void Model2D::draw(const HDC& hdc, RECT& rcClient)
 {
-	POINT* vertcs = getPoints();
-	//int size = m_vertices.size();
-	//for (int i = 0; i < size; ++i)
-	//{
-	//	Vector2D dot = cam.GetDot(m_vertices[m_indices[i]]);
-	//	vertcs[i].x = dot.x();
-	//	vertcs[i].y = dot.y();
-	//}
 
-	Polygon(hdc, vertcs, m_vertices.size());
-	delete[] vertcs;
+	auto Camera = [&rcClient](int x0_world, int y0_world, POINT source_point, int scale) -> POINT
+	{
+		int WIDTH = rcClient.right - rcClient.left, HEIGHT = rcClient.bottom - rcClient.top;
+		int x_0 = WIDTH / 2 - x0_world;
+		int y_0 = HEIGHT / 2 - y0_world;
+		double x = x_0 + scale * source_point.x;
+		double y = y_0 + scale * source_point.y;
+		POINT pnt;
+		pnt.x = int(x);
+		pnt.y = int(y);
 
-	/*Vector2D start = cam.GetDot(m_vertices[m_indices[0]]);
-	MoveToEx(hdc, start.x(), start.y(), NULL);
+		return pnt;
+	};
 
-	int size = m_indices.size();
-	for (int i = 1; i < size; ++i) {
+	POINT* pnts = new POINT[m_vertices.size()];
+	POINT* modelPoints = getPoints();
+	for (int i = 0; i < m_vertices.size(); ++i)
+	{
+		POINT tmp = Camera(350, 200, modelPoints[i], 1);
+		pnts[i] = tmp;
+	}
+	Polygon(hdc, pnts, m_vertices.size());
 
-		Vector2D dot = cam.GetDot(m_vertices[m_indices[i]]);
-		LineTo(hdc, dot.x(), dot.y());
-	}*/
+	delete[] pnts;
 }
 
 void Model2D::apply(Matrix<> transformMat)
@@ -80,16 +84,6 @@ void Model2D::affin(Matrix<> transformMat)
 	apply(Translation(-tempX, -tempY));
 	apply(transformMat);
 	apply(Translation(tempX, tempY));
-}
-
-std::vector<Vector2D> Model2D::GetVertices() const
-{
-	return m_vertices;
-}
-
-std::vector<int> Model2D::GetIndices() const
-{
-	return m_indices;
 }
 
 void Model2D::Rotation_M(double O)

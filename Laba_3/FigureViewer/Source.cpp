@@ -2,31 +2,26 @@
 #include <Windows.h>
 #include <windowsx.h>
 #include "Render2D.h"
-#include "Scene2D.h"
 
 
 WNDCLASS createWindowClass(HBRUSH bgColor, HCURSOR cursor, HINSTANCE hInstance, HICON icon, LPCWSTR windowName, WNDPROC windowProcedure);
 LRESULT CALLBACK windowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
 Render2D render;
-double X0 = 100, Y0 = 200, px = 0.1, py = 0.1;
-Scene2D* scene;
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 
-	render.addObject(new Model2D("figure1.txt", 0, 0));
-	render.addObject(new Model2D("figure2.txt", 0, 0));
+	render.addObject(new Model2D("figure1.txt", 100, 0));
+	render.addObject(new Model2D("figure2.txt", 100, 0));
+	render.addObject(new Model2D("figure3.txt", 100, 0));
 
 	WNDCLASS mainWindow = createWindowClass((HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_ARROW), hInstance, LoadIcon(NULL, IDI_QUESTION), L"MainWndClass", windowProcedure);
 
 	if (!RegisterClass(&mainWindow))
 		return -1;
 
-	HWND hWnd = CreateWindow(LPCSTR(L"MainWndClass"), LPCSTR(L"MainWindow"), WS_OVERLAPPEDWINDOW | WS_VISIBLE, 200, 200, 400, 400, NULL, NULL, hInstance, NULL);
-
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+	CreateWindow(LPCSTR(L"MainWndClass"), LPCSTR(L"MainWindow"), WS_OVERLAPPEDWINDOW | WS_VISIBLE, 100, 100, 800, 800, NULL, NULL, NULL, NULL);
 
 	MSG message = { 0 };
 	while (GetMessage(&message, NULL, NULL, NULL)) {
@@ -64,25 +59,16 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 	switch (msg)
 	{
 	case WM_CREATE:
-		scene = new Scene2D(hWnd, X0, Y0, px, py, render.get_models());
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	case WM_PAINT:
-		/*hdc = GetDC(hWnd);
-		brush = CreateSolidBrush(RGB(0, 255, 0));
-		SelectObject(hdc, brush);
-		render.draw(hdc);
-		DeleteObject(brush);
-		ReleaseDC(hWnd, hdc);*/
-		//scene->Clear();				// Вызов реализованного в классе Camera2D метода, отвечающего за очистку рабочей области окна hWnd
-		brush = CreateSolidBrush(RGB(0, 255, 0));
-		SelectObject(scene->GetDC(), brush);
-		scene->Render();
-		DeleteObject(brush);
-		ReleaseDC(hWnd, scene->GetDC());
-		return DefWindowProc(hWnd, msg, wp, lp);
+		hdc = GetDC(hWnd);
+		RECT rcClient;
+		GetWindowRect(hWnd, &rcClient);
+		render.draw(hdc, rcClient);
+		ReleaseDC(hWnd, hdc);
 		break;
 	case WM_MOUSEWHEEL:
 	{
@@ -148,13 +134,6 @@ LRESULT CALLBACK windowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 		}
 		}
 		InvalidateRect(hWnd, NULL, true);
-		return 0;
-	}
-	case WM_SIZE:
-	{
-		scene->SetResolution();
-		ReleaseDC(hWnd, scene->GetDC());
-		InvalidateRect(hWnd, nullptr, false);
 		return 0;
 	}
 	default:

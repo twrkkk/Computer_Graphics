@@ -25,15 +25,15 @@ public:
 
 	void setVaue(int, int, Cell);
 
-	Cell& operator()(int i, int j) const { return m_cells[i][j]; }
+	Cell& operator()(int i, int j) { return m_cells[i][j]; }
 
 	Matrix& operator = (const Matrix&);		// Перегрузка оператора присваивания
 	Matrix  operator + (const Matrix&);		// Сложение матриц
 	Matrix  operator - (const Matrix&);		// Вычитание матриц
 	Matrix  operator * (const Matrix&);		// Умножение матриц
 
-	friend istream& operator >> (istream&, Matrix&);			// Перегрузка оператора >> для ввода матрицы
-	friend ostream& operator << (ostream&, const Matrix&);	// Перегрузка оператора << для вывода матрицы
+	friend istream& operator >> <> (istream&, Matrix&);			// Перегрузка оператора >> для ввода матрицы
+	friend ostream& operator << <> (ostream&, const Matrix&);	// Перегрузка оператора << для вывода матрицы
 };
 
 template <typename Cell>
